@@ -1,0 +1,45 @@
+group 'com.suntabu.moonrover'
+version '1.0-SNAPSHOT'
+//mavenUrl = "http://192.168.3.34:8081/repository/maven-central/"
+
+buildscript {
+    ext.kotlin_version = '1.0.6'
+
+    repositories {
+        //maven{ url mavenUrl}
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+mainClassName = 'suntabu.moonrover.MainKt'
+defaultTasks 'run'
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    baseName = 'MoonRover'
+    version = '0.1.0'
+}
+
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'src/main/java'
+}
+repositories {
+    //maven{ url mavenUrl}
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
