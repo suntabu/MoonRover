@@ -5,9 +5,9 @@ package suntabu.moonrover.simulateObj
  */
 
 
-class Vector2{
-    var x:Float = 0f
-    var y:Float = 0f
+class Vector2(val ix:Float = 0f,val iy:Float = 0f){
+    var x:Float = ix
+    var y:Float = iy
 
 
     override fun toString(): String {

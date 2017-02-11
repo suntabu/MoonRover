@@ -21,6 +21,7 @@ import java.util.*
 val CONTROL_INTERVAL = 500L   //control center print info interval.
 val ROVER_INTERVAL = 1000L    //rover report it's info interval.
 val TRANSPORT_DELAY = 2000L   //the delay of transport between lunar and earth.
+val AREA_LENGTH = 500         //simulation square area length
 val FILE_PATH = "routes.txt"  //the file recorded routes.
 
 
@@ -37,6 +38,20 @@ class RoverSimulate(val count:Int){
 
 
     fun run(){
+        GenerateRoute()
+
+        File(FILE_PATH).readLines().forEach {
+            val strs: List<String> = it.split(',')
+            println(Transform(strs[0].toInt(),
+                    Vector2(strs[1].toFloat(),strs[2].toFloat()),
+                    Vector2(strs[3].toFloat(),strs[4].toFloat()),
+                    Vector2(strs[5].toFloat(),strs[6].toFloat()),
+                    strs[7].toFloat(),
+                    strs[8].toInt()
+            ))
+        }
+
+
         for (i in 0..count - 1){
             var rover = MoonRover(i)
             rovers.add(rover)
@@ -46,24 +61,49 @@ class RoverSimulate(val count:Int){
 
 
         control.startup()
-        File(FILE_PATH).printWriter().use { out ->
 
-            for (i in 0..15*60)
-            {
-                val t = Transform(Vector2(), Vector2(),Vector2(),20f,i)
-
-                out.println(t)
-            }
-
-
-        }
     }
 }
 
 
 
 fun GenerateRoute(){
-   /* File(FILE_PATH).readLines().forEach {
 
-    }*/
+    File(FILE_PATH).printWriter().use { out ->
+
+
+
+
+
+        for (inx in 0..4){
+            (0..15*60)
+                    .map {
+                        val random = Random()
+                        val x = random.nextInt(AREA_LENGTH)
+                        val y = random.nextInt(AREA_LENGTH)
+
+                        val dx = random.nextFloat()
+                        val dy = random.nextFloat()
+
+                        val sx = random.nextFloat()
+                        val sy = random.nextFloat()
+
+                        val angle = random.nextInt(360)
+                        Transform(inx,Vector2(x.toFloat(),y.toFloat()), Vector2(dx,dy),Vector2(sx,sy),angle.toFloat(), it) }
+                    .map {
+                        "" + it.id +
+                                "," + it.pos.x+ "," + it.pos.y+
+                                "," + it.dir.x+ "," + it.dir.y+
+                                "," + it.velocity.x+ "," + it.velocity.y+
+                                "," + it.angle+
+                                "," + it.timeStamp
+                    }
+                    .forEach { out.println(it) }
+        }
+
+
+
+    }
+
+
 }
