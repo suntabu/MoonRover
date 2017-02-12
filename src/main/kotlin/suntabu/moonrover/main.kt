@@ -24,36 +24,56 @@ val TRANSPORT_DELAY = 2000L   //the delay of transport between lunar and earth.
 val AREA_LENGTH = 500         //simulation square area length
 val FILE_PATH = "routes.txt"  //the file recorded routes.
 
+val FRAME_INTERVAL = 16L      //default 16ms a frame
 
-fun main(args:Array<String>){
-    val simulate = RoverSimulate(5)
+var ROVER_COUNT = 1
+
+
+fun main(args: Array<String>) {
+    val simulate = RoverSimulate(ROVER_COUNT)
     simulate.run()
 }
 
 
-
-class RoverSimulate(val count:Int){
+class RoverSimulate(val count: Int) {
     val rovers: ArrayList<MoonRover> = arrayListOf()
     val control: ControlCenter = ControlCenter()
 
 
-    fun run(){
+    var mTrans: MutableList<Transform> = mutableListOf()
+    var mRoutes: Map<Int, List<Transform>> = mapOf()
+
+    fun run() {
         GenerateRoute()
 
         File(FILE_PATH).readLines().forEach {
             val strs: List<String> = it.split(',')
-            println(Transform(strs[0].toInt(),
-                    Vector2(strs[1].toFloat(),strs[2].toFloat()),
-                    Vector2(strs[3].toFloat(),strs[4].toFloat()),
-                    Vector2(strs[5].toFloat(),strs[6].toFloat()),
-                    strs[7].toFloat(),
-                    strs[8].toInt()
-            ))
+            var tran = Transform(strs[0].toInt(),
+                    Vector2(strs[1].toFloat(), strs[2].toFloat()),
+                    Vector2(strs[3].toFloat(), strs[4].toFloat()),
+                    strs[5].toFloat(),
+                    strs[6].toFloat(),
+                    strs[7].toInt()
+            )
+
+            mTrans.add(tran)
+//            println(tran)
         }
 
 
-        for (i in 0..count - 1){
+        mRoutes = mTrans.groupBy {
+            it ->
+            it.id
+        }
+        mRoutes.forEach { it.value.sortedBy { it -> it.time }.forEach { println(it) } }
+
+
+
+        for (i in 0..count - 1) {
             var rover = MoonRover(i)
+            rover.setRoute(mRoutes.get(i))
+
+
             rovers.add(rover)
 
             rover.startup()
@@ -62,21 +82,18 @@ class RoverSimulate(val count:Int){
 
         control.startup()
 
+        MessagePool.init()
     }
 }
 
 
-
-fun GenerateRoute(){
+fun GenerateRoute() {
 
     File(FILE_PATH).printWriter().use { out ->
 
 
-
-
-
-        for (inx in 0..4){
-            (0..15*60)
+        for (inx in 0..4) {
+            (0..15 * 60)
                     .map {
                         val random = Random()
                         val x = random.nextInt(AREA_LENGTH)
@@ -88,19 +105,20 @@ fun GenerateRoute(){
                         val sx = random.nextFloat()
                         val sy = random.nextFloat()
 
-                        val angle = random.nextInt(360)
-                        Transform(inx,Vector2(x.toFloat(),y.toFloat()), Vector2(dx,dy),Vector2(sx,sy),angle.toFloat(), it) }
+                        val angle = random.nextFloat()// TODO: use velocity's angle
+
+                        Transform(inx, Vector2(x.toFloat(), y.toFloat()), Vector2(dx, dy), Vector2(sx, sy).magnitude(), angle, it)
+                    }
                     .map {
                         "" + it.id +
-                                "," + it.pos.x+ "," + it.pos.y+
-                                "," + it.dir.x+ "," + it.dir.y+
-                                "," + it.velocity.x+ "," + it.velocity.y+
-                                "," + it.angle+
+                                "," + it.pos.x + "," + it.pos.y +
+                                "," + it.routeDir.x + "," + it.routeDir.y +
+                                "," + it.speed +
+                                "," + it.angle +
                                 "," + it.timeStamp
                     }
                     .forEach { out.println(it) }
         }
-
 
 
     }

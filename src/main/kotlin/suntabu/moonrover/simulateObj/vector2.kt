@@ -5,14 +5,16 @@ package suntabu.moonrover.simulateObj
  */
 
 
-class Vector2(val ix:Float = 0f,val iy:Float = 0f){
-    var x:Float = ix
-    var y:Float = iy
+class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
+    var x: Float = ix
+    var y: Float = iy
 
 
     override fun toString(): String {
         return "($x,$y)"
     }
 
-
+    fun magnitude(): Float {
+        return Math.sqrt(x * x + y * y.toDouble()).toFloat()
+    }
 }

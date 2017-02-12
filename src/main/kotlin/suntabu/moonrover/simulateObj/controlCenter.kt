@@ -1,5 +1,6 @@
 package suntabu.moonrover.simulateObj
 
+import suntabu.moonrover.CONTROL_INTERVAL
 import suntabu.moonrover.simulateObj.Vector2
 import java.io.File
 
@@ -12,9 +13,9 @@ class ControlCenter(){
 
         val runnable = Runnable {
             while (true){
-                println("send a message")
+                //println("send a message")
 
-                Thread.sleep(2000L)
+                Thread.sleep(CONTROL_INTERVAL)
             }
         }
 
@@ -28,14 +29,27 @@ class ControlCenter(){
 
 /**
  * every second the transform information of rover
- * id, position, direction, velocity, angle, timestamp
+ * id,
+ * position,
+ * nextPosDir,
+ * speed,
+ * angle,
+ * timestamp
  */
-data class Transform(val routeId:Int, val position: Vector2, val direction: Vector2, val speed: Vector2, val rotate:Float, val time:Int) {
-    var pos: Vector2 = position
-    var dir: Vector2 = direction
-    var velocity: Vector2 = speed
-    var angle:Float=rotate
-    var timeStamp: Int = time
-    var id:Int = routeId
+data class Transform(val routeId:Int,
+                     val position: Vector2,
+                     val nextPosDir: Vector2,
+                     val inSpeed: Float,
+                     val inAngle:Float,
+                     val time:Int) {
+    var id = routeId
+    var pos = position
+    var routeDir = nextPosDir
+    var speed = inSpeed
+    var angle = inAngle
+    var timeStamp = time
+
+
+
 
 }
