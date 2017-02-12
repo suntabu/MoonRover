@@ -13,7 +13,9 @@
 
 package suntabu.moonrover
 
+import suntabu.moonrover.models.Transform
 import suntabu.moonrover.simulateObj.*
+import suntabu.moonrover.utils.Vector2
 import java.io.File
 import java.nio.charset.Charset
 import java.util.*
@@ -125,3 +127,5 @@ fun GenerateRoute() {
 
 
 }
+
+

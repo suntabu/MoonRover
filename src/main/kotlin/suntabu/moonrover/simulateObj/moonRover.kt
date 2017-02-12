@@ -7,13 +7,17 @@ package suntabu.moonrover.simulateObj
 import suntabu.moonrover.FRAME_INTERVAL
 import suntabu.moonrover.MessagePool
 import suntabu.moonrover.ROVER_INTERVAL
+import suntabu.moonrover.models.Message
+import suntabu.moonrover.models.Transform
+import suntabu.moonrover.utils.Vector2
 
 class MoonRover(val roverid: Int) {
     public var id = roverid;
 
 
-
-
+    public var postion: Vector2 = Vector2()
+    public var speed: Float = 0f
+    public var angle: Float = 0f
 
 
     /***Engine fields***/
@@ -30,6 +34,8 @@ class MoonRover(val roverid: Int) {
     fun startup() {
         println("Rover $id start working now!")
 
+        var routeInx = 0;
+
         Thread(Runnable {
             mTimeStartup = System.currentTimeMillis()
 
@@ -40,7 +46,18 @@ class MoonRover(val roverid: Int) {
                 if (mReportInterval >= ROVER_INTERVAL) {
                     report()
                     mReportInterval = 0L
+
+                    var tran = route[routeInx]
+                    this.angle = tran.angle
+                    this.speed = tran.speed
+                    var targetPos = tran.pos //TODO: how to use it.
+
+                    routeInx++
                 }
+
+
+
+                translate()
 
                 Thread.sleep(FRAME_INTERVAL - getTimeSinceStartup() % FRAME_INTERVAL)
 
@@ -53,6 +70,9 @@ class MoonRover(val roverid: Int) {
         }).start()
     }
 
+    fun translate() {
+        this.postion += Vector2.from(speed, angle) * (mTimeDelta.toFloat() / 1000)
+    }
 
     fun getTimeSinceStartup(): Long {
         return System.currentTimeMillis() - mTimeStartup;
@@ -66,7 +86,7 @@ class MoonRover(val roverid: Int) {
 
 
     fun report() {
-        MessagePool.dispatchMessage("report to control center with $id info")
+        MessagePool.dispatchMessage(Message(id, "report to control center with $id $postion $angle $speed info", System.currentTimeMillis()))
     }
 
 

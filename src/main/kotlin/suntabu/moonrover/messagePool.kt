@@ -1,12 +1,14 @@
 package suntabu.moonrover
 
+import suntabu.moonrover.models.Message
+
 /**
  * Created by gouzhun on 2017/2/12.
  */
 
 object MessagePool {
 
-    var messageQueue: MutableList<String> = mutableListOf()
+    var messageQueue: MutableList<Message> = mutableListOf()
 
     fun registerDevice() {
 
@@ -26,11 +28,11 @@ object MessagePool {
     }
 
 
-    fun dispatchMessage(msg: String) {
+    fun dispatchMessage(msg: Message) {
         messageQueue.add(msg)
     }
 
-    private fun dispatch(msg: String) {
+    private fun dispatch(msg: Message) {
         println(msg)
     }
 
