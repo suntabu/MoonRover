@@ -1,6 +1,7 @@
 package suntabu.moonrover
 
 import suntabu.moonrover.models.Message
+import suntabu.moonrover.simulateObj.ControlCenter
 
 /**
  * Created by gouzhun on 2017/2/12.
@@ -10,8 +11,10 @@ object MessagePool {
 
     var messageQueue: MutableList<Message> = mutableListOf()
 
-    fun registerDevice() {
+    var controlCenter:ControlCenter? = null
 
+    fun registerDevice(cc:ControlCenter) {
+        controlCenter = cc
     }
 
 
@@ -33,7 +36,8 @@ object MessagePool {
     }
 
     private fun dispatch(msg: Message) {
-        println(msg)
+        //println(msg)
+        controlCenter?.receivedMessage(msg)
     }
 
 }
