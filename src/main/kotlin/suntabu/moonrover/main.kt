@@ -102,15 +102,17 @@ fun GenerateRoute() {
                         val x = random.nextInt(AREA_LENGTH)
                         val y = random.nextInt(AREA_LENGTH)
 
-                        val dx = random.nextFloat()
-                        val dy = random.nextFloat()
+                        val dx = random.nextFloat() - 0.5f
+                        val dy = random.nextFloat() - 0.5f
 
-                        val sx = random.nextFloat()
-                        val sy = random.nextFloat()
+                        val sx = random.nextFloat() - 0.5f
+                        val sy = random.nextFloat() - 0.5f
 
-                        val angle = random.nextFloat()// TODO: use velocity's angle
+                        val velocity = Vector2(sx,sy) * random.nextInt().toFloat()
+                        val angle = velocity.angle()
+                        val magnitude = velocity.magnitude()
 
-                        Transform(inx, Vector2(x.toFloat(), y.toFloat()), Vector2(dx, dy), Vector2(sx, sy).magnitude(), angle, it)
+                        Transform(inx, Vector2(x.toFloat(), y.toFloat()), Vector2(dx, dy), magnitude, angle, it)
                     }
                     .map {
                         "" + it.id +

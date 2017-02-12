@@ -32,7 +32,10 @@ object MessagePool {
 
 
     fun dispatchMessage(msg: Message) {
-        messageQueue.add(msg)
+        synchronized(messageQueue){
+            messageQueue.add(msg)
+        }
+
     }
 
     private fun dispatch(msg: Message) {
