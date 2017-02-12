@@ -14,7 +14,7 @@ import suntabu.moonrover.utils.Vector2
 class MoonRover(val roverid: Int) {
     public var id = roverid;
 
-
+    /*********Transform***********/
     public var postion: Vector2 = Vector2()
     public var speed: Float = 0f
     public var angle: Float = 0f
