@@ -19,7 +19,7 @@ File Content Example:
 > 0,480.00,291.00,-0.30,-0.27,0.46,-3.90,755
 > 0,356.00,122.00,-0.11,0.33,0.89,-0.22,756
 > 0,91.00,40.00,0.03,0.49,2.15,1.33,757
-> 0,195.00,156.00,0.47,0.08,0.65,-2.10,758   
+> 0,195.00,156.00,0.47,0.08,0.65,-2.10,758
 
 Numbers in line stand for:
 >id, postion.x, postion.y, routeDirection.x, routeDirection.y, speed, angle, timestamp

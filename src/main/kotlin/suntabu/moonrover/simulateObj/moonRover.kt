@@ -4,12 +4,11 @@
 
 package suntabu.moonrover.simulateObj
 
-import suntabu.moonrover.FRAME_INTERVAL
-import suntabu.moonrover.MessagePool
-import suntabu.moonrover.ROVER_INTERVAL
+import suntabu.moonrover.*
 import suntabu.moonrover.models.Message
 import suntabu.moonrover.models.Transform
 import suntabu.moonrover.utils.Vector2
+import suntabu.moonrover.utils.Vector3
 import suntabu.moonrover.utils.format
 
 class MoonRover(val roverid: Int) {
@@ -17,7 +16,7 @@ class MoonRover(val roverid: Int) {
 
     /***********Circle Collider************/
 
-//    public var collider
+    public var collider:CircleCollider= CircleCollider(ROVER_WIDTH,this)
 
     /*********Transform***********/
     public var postion: Vector2 = Vector2()
@@ -80,8 +79,18 @@ class MoonRover(val roverid: Int) {
     }
 
     fun translate() {
+        var dir = (targetPos - this.postion).normalize()
 
-        this.postion += (targetPos - this.postion) * speed * (mTimeDelta.toFloat() / 1000)
+        rovers.forEach {
+            if (it.id != this.id){
+                if (it.collider.isIntersectWithRay(dir,this.postion)){
+                    dir = Vector3(dir).cross(Vector3(0f,1f,0f)).toVector2()
+                }
+            }
+        }
+
+
+        this.postion += dir * speed * (mTimeDelta.toFloat() / 1000)
     }
 
     fun getTimeSinceStartup(): Long {

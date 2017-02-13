@@ -2,10 +2,7 @@ package suntabu.moonrover.utils
 
 /**
  * Created by gouzhun on 2017/2/10.
- */
 
-
-/**
  * TIPS：angle 在项目中是使用的顺时针值，所以需要注意！
  */
 class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
@@ -41,6 +38,10 @@ class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
     }
 
 
+    fun dot(ve:Vector2):Float{
+        return this.x * ve.x + this.y * ve.y
+    }
+
     fun normalize():Vector2{
         var mag = magnitude()
         if (mag != 0f)
@@ -54,14 +55,12 @@ class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
         return Vector2(x * scale, y * scale)
     }
 
-/*    operator fun plusAssign(other: Vector2) {
-        x += other.x
-        y += other.y
-    }*/
-
-
     operator fun minus(other:Vector2):Vector2{
         return Vector2(this.x - other.x, this.y - other.y)
+    }
+
+    infix operator fun plus(other: Vector2): Vector2 {
+        return Vector2(x + other.x,y + other.y)
     }
 
     companion object {
@@ -78,10 +77,6 @@ class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
 
             return Vector2(cos * magnitude, sin * magnitude)
         }
-    }
-
-    infix operator fun plus(other: Vector2): Vector2 {
-        return Vector2(x + other.x,y + other.y)
     }
 }
 

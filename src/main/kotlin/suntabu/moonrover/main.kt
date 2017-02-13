@@ -30,7 +30,11 @@ val FILE_PATH = "routes.txt"  //the file recorded routes.
 val FRAME_INTERVAL = 16L      //default 16ms a frame
 
 var ROVER_COUNT = 5
+var ROVER_WIDTH = 2f           //rover width for circle collider radius
 
+
+val rovers: ArrayList<MoonRover> = arrayListOf()
+val control: ControlCenter = ControlCenter()
 
 fun main(args: Array<String>) {
     val simulate = RoverSimulate(ROVER_COUNT)
@@ -42,10 +46,6 @@ fun main(args: Array<String>) {
  * simulation main class
  */
 class RoverSimulate(val count: Int) {
-    val rovers: ArrayList<MoonRover> = arrayListOf()
-    val control: ControlCenter = ControlCenter()
-
-
     var mTrans: MutableList<Transform> = mutableListOf()
     var mRoutes: Map<Int, List<Transform>> = mapOf()
 
