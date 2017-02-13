@@ -13,14 +13,16 @@ class ControlCenter() {
 
     var roversInfo: MutableMap<Int, MutableList<Message>> = mutableMapOf()
 
-
+    var printInfos:MutableMap<Int,PrintInfo> = mutableMapOf()
     fun startup() {
 
         val runnable = Runnable {
             while (true) {
                 //println("send a message")
                 roversInfo.forEach {
-                    println("Rover ${it.key} run at ${it.value.last()}" )
+//                    println("Rover ${it.key} run at ${it.value.last()}" )
+
+                    predictRover(it.value.last())
                 }
                 Thread.sleep(CONTROL_INTERVAL)
             }
@@ -42,6 +44,34 @@ class ControlCenter() {
 
         roversInfo.put(msg.fromId, mutableListOf(msg))
     }
+
+
+
+    fun predictRover(msg:Message){
+        var pi:PrintInfo?
+        if (printInfos.containsKey(msg.fromId)){
+             pi = printInfos[msg.fromId]
+
+        }else{
+             pi = PrintInfo()
+            pi?.id = msg.fromId
+            printInfos.put(msg.fromId,pi)
+        }
+
+        pi?.reportPos = msg.pos
+        pi?.direction= Vector2.from(msg.speed,msg.angle)
+        pi?.predictPos = msg.pos + pi?.direction!! * ((System.currentTimeMillis() - msg.time)/1000f)
+        println("Rover " +pi?.id +
+                "\t\t\treport pos: " + pi?.reportPos +
+                "\t\t\tpredictPos: " + pi?.predictPos +
+                "\t\t\tdirection: " + pi?.direction)
+    }
 }
 
 
+class PrintInfo{
+    var id:Int = 0
+    var reportPos:Vector2 = Vector2()
+    var predictPos:Vector2 = Vector2()
+    var direction :Vector2 = Vector2()
+}

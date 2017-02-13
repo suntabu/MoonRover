@@ -49,6 +49,6 @@ Windows
 	gradlew.bat run
 ```
 or
-```
+``` java
 	In Run/Debug Configurations for Kotlin, set Main Class as 'suntabu.moonrover.MainKt'
 ```

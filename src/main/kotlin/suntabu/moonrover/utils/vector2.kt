@@ -41,15 +41,28 @@ class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
     }
 
 
+    fun normalize():Vector2{
+        var mag = magnitude()
+        if (mag != 0f)
+            return this .times(1/mag)
+        else{
+            return this
+        }
+    }
+
     operator fun times(scale: Float): Vector2 {
         return Vector2(x * scale, y * scale)
     }
 
-    operator fun plusAssign(other: Vector2) {
+/*    operator fun plusAssign(other: Vector2) {
         x += other.x
         y += other.y
-    }
+    }*/
 
+
+    operator fun minus(other:Vector2):Vector2{
+        return Vector2(this.x - other.x, this.y - other.y)
+    }
 
     companion object {
         fun from(magnitude: Float, angle: Float): Vector2 {
@@ -65,6 +78,10 @@ class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
 
             return Vector2(cos * magnitude, sin * magnitude)
         }
+    }
+
+    infix operator fun plus(other: Vector2): Vector2 {
+        return Vector2(x + other.x,y + other.y)
     }
 }
 

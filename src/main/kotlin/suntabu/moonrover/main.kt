@@ -29,7 +29,7 @@ val FILE_PATH = "routes.txt"  //the file recorded routes.
 
 val FRAME_INTERVAL = 16L      //default 16ms a frame
 
-var ROVER_COUNT = 1
+var ROVER_COUNT = 5
 
 
 fun main(args: Array<String>) {
