@@ -20,7 +20,7 @@ class ControlCenter() {
             while (true) {
                 //println("send a message")
                 roversInfo.forEach {
-                    println("${it.key} run at ${it.value.last()}" )
+                    println("Rover ${it.key} run at ${it.value.last()}" )
                 }
                 Thread.sleep(CONTROL_INTERVAL)
             }

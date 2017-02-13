@@ -10,6 +10,7 @@ import suntabu.moonrover.ROVER_INTERVAL
 import suntabu.moonrover.models.Message
 import suntabu.moonrover.models.Transform
 import suntabu.moonrover.utils.Vector2
+import suntabu.moonrover.utils.format
 
 class MoonRover(val roverid: Int) {
     public var id = roverid;
@@ -86,7 +87,7 @@ class MoonRover(val roverid: Int) {
 
 
     fun report() {
-        MessagePool.dispatchMessage(Message(id, "report to control center with $id $postion $angle $speed info", System.currentTimeMillis()))
+        MessagePool.dispatchMessage(Message(id, "report to control center with Route $id / pos $postion / angle ${angle.format(2)} / speed ${speed.format(2)}", System.currentTimeMillis()))
     }
 
 

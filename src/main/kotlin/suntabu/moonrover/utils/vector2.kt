@@ -14,7 +14,7 @@ class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
 
 
     override fun toString(): String {
-        return "($x,$y)"
+        return "(${x.format(2)},${y.format(2)})"
     }
 
     fun magnitude(): Float {
@@ -23,6 +23,9 @@ class Vector2(val ix: Float = 0f, val iy: Float = 0f) {
 
     fun angle(): Float {
         if (x == 0f) {
+            if (y == 0f){
+                return 0f
+            }
             return -(y / Math.abs(y) * Math.PI / 2).toFloat()
         }
 

@@ -16,6 +16,7 @@ package suntabu.moonrover
 import suntabu.moonrover.models.Transform
 import suntabu.moonrover.simulateObj.*
 import suntabu.moonrover.utils.Vector2
+import suntabu.moonrover.utils.format
 import java.io.File
 import java.nio.charset.Charset
 import java.util.*
@@ -28,7 +29,7 @@ val FILE_PATH = "routes.txt"  //the file recorded routes.
 
 val FRAME_INTERVAL = 16L      //default 16ms a frame
 
-var ROVER_COUNT = 5
+var ROVER_COUNT = 1
 
 
 fun main(args: Array<String>) {
@@ -79,6 +80,7 @@ class RoverSimulate(val count: Int) {
             rovers.add(rover)
 
             rover.startup()
+            Thread.sleep(ROVER_INTERVAL/count)
         }
 
 
@@ -108,7 +110,7 @@ fun GenerateRoute() {
                         val sx = random.nextFloat() - 0.5f
                         val sy = random.nextFloat() - 0.5f
 
-                        val velocity = Vector2(sx,sy) * random.nextInt().toFloat()
+                        val velocity = Vector2(sx,sy) * random.nextInt(10).toFloat()
                         val angle = velocity.angle()
                         val magnitude = velocity.magnitude()
 
@@ -116,10 +118,10 @@ fun GenerateRoute() {
                     }
                     .map {
                         "" + it.id +
-                                "," + it.pos.x + "," + it.pos.y +
-                                "," + it.routeDir.x + "," + it.routeDir.y +
-                                "," + it.speed +
-                                "," + it.angle +
+                                "," + it.pos.x.format(2) + "," + it.pos.y.format(2) +
+                                "," + it.routeDir.x.format(2) + "," + it.routeDir.y.format(2) +
+                                "," + it.speed.format(2) +
+                                "," + it.angle.format(2) +
                                 "," + it.timeStamp
                     }
                     .forEach { out.println(it) }
