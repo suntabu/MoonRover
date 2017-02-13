@@ -38,6 +38,9 @@ fun main(args: Array<String>) {
 }
 
 
+/**
+ * simulation main class
+ */
 class RoverSimulate(val count: Int) {
     val rovers: ArrayList<MoonRover> = arrayListOf()
     val control: ControlCenter = ControlCenter()
@@ -91,14 +94,16 @@ class RoverSimulate(val count: Int) {
     }
 }
 
-
+/**
+ * Generate the routes for moon rover.
+ */
 fun GenerateRoute() {
 
     File(FILE_PATH).printWriter().use { out ->
 
 
-        for (inx in 0..4) {
-            (0..15 * 60)
+        for (inx in 0..ROVER_COUNT - 1) {
+            (0..15 * 60 - 1)
                     .map {
                         val random = Random()
                         val x = random.nextInt(AREA_LENGTH)

@@ -21,8 +21,8 @@ File Content Example:
   0,91.00,40.00,0.03,0.49,2.15,1.33,757
   0,195.00,156.00,0.47,0.08,0.65,-2.10,758
 
-
-
+Numbers in line stand for:
+>id, postion.x, postion.y, routeDirection.x, routeDirection.y, speed, angle, timestamp
 
 
 
@@ -50,5 +50,5 @@ Windows
 ```
 or
 ```
-	In Run/Debug Configurations for Kotlin, set Main Class 'suntabu.moonrover.MainKt' 
+	In Run/Debug Configurations for Kotlin, set Main Class as 'suntabu.moonrover.MainKt'
 ```
