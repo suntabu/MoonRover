@@ -15,6 +15,10 @@ import suntabu.moonrover.utils.format
 class MoonRover(val roverid: Int) {
     public var id = roverid;
 
+    /***********Circle Collider************/
+
+//    public var collider
+
     /*********Transform***********/
     public var postion: Vector2 = Vector2()
     public var speed: Float = 0f
