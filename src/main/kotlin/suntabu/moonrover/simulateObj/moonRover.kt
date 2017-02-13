@@ -84,6 +84,7 @@ class MoonRover(val roverid: Int) {
         rovers.forEach {
             if (it.id != this.id){
                 if (it.collider.isIntersectWithRay(dir,this.postion)){
+                    //println("Rover $id 's front has a rover")
                     dir = Vector3(dir).cross(Vector3(0f,1f,0f)).toVector2()
                 }
             }
