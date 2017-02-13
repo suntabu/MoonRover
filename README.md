@@ -1,5 +1,5 @@
 # MoonRover
-**This is a Kotlin learning project built with Gradle.**
+**This is a Kotlin learning project built with [Gradle](http://kotlinlang.org/docs/reference/using-gradle.html). You can find Kotlin gradle examples at [here](https://github.com/JetBrains/kotlin-examples/tree/master/gradle/hello-world)**
 
 ### Goals
 - 1.月球车移动之前会将当前坐标（X,Y），目标坐标（X1,Y1），移动速度发送给地面控制中心，然后开始直线向目标移动
@@ -11,7 +11,15 @@
 - 7.程序启动时从一个文本文件中读取5条线路数据分配给5辆月球车进行模拟，线路数据包含了每秒位置，方向，速度以及转向角度，每条线路的运行时间不小于15分钟,具体文件格式请给出说明
 
 ### Route File Formate
-
+File Content Example:
+> 0,342.00,481.00,-0.37,0.11,2.32,0.54,751
+  0,284.00,228.00,0.22,0.15,0.88,1.13,752
+  0,85.00,115.00,-0.29,-0.12,0.53,-0.41,753
+  0,342.00,173.00,0.34,0.47,2.21,0.63,754
+  0,480.00,291.00,-0.30,-0.27,0.46,-3.90,755
+  0,356.00,122.00,-0.11,0.33,0.89,-0.22,756
+  0,91.00,40.00,0.03,0.49,2.15,1.33,757
+  0,195.00,156.00,0.47,0.08,0.65,-2.10,758
 
 
 

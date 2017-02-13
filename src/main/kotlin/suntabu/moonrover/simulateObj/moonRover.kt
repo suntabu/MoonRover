@@ -48,6 +48,9 @@ class MoonRover(val roverid: Int) {
                     report()
                     mReportInterval = 0L
 
+                    if (routeInx >= route.size ){
+                        mWorking = false
+                    }
                     var tran = route[routeInx]
                     this.angle = tran.angle
                     this.speed = tran.speed
